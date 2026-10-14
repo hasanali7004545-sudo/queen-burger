@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101010">
+  <meta name="description" content="اطلب أشهى وجبات كوين برگر في بابل - الحصوة - حي الشهداء. شاورما، برگر، كنتاكي، بيتزا والمزيد.">
+  <title>كوين برگر | اطلب وجبتك الآن</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--red:#e63b35;--gold:#f5b82e;--bg:#101010;--panel:#191919;--muted:#a7a7a7;--line:#303030}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#fff;font-family:'Cairo',sans-serif}
+    button,input,textarea,select{font:inherit}button{cursor:pointer}
+    .wrap{width:min(1160px,92%);margin:auto}
+    header{position:sticky;top:0;z-index:10;background:#111e;border-bottom:1px solid #ffffff15;backdrop-filter:blur(14px)}
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+    .brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--red),#9f1717);display:grid;place-items:center;font-size:26px;box-shadow:0 8px 24px #e63b3540}
+    .brand b{display:block;font-size:20px;font-weight:900}.brand small{color:var(--gold);font-size:11px}
+    .btn{border:0;border-radius:13px;padding:11px 17px;font-weight:800;transition:.2s}.btn-red{background:var(--red);color:#fff}.btn-red:hover{background:#c92b27;transform:translateY(-1px)}.btn-gold{background:var(--gold);color:#171717}
+    .cart-open{display:flex;align-items:center;gap:8px}.count{background:var(--gold);color:#111;border-radius:50px;padding:1px 8px;font-size:12px}
+    .hero{padding:62px 0 52px;background:radial-gradient(ellipse at 15% 35%,#7c201c66,transparent 45%),linear-gradient(120deg,#1a1a1a,#101010 65%);border-bottom:1px solid var(--line)}
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:35px}.eyebrow{display:inline-block;color:var(--gold);background:#f5b82e18;border:1px solid #f5b82e55;padding:6px 13px;border-radius:50px;font-size:12px;font-weight:800}
+    h1{font-size:clamp(32px,5vw,54px);line-height:1.35;margin:15px 0}.hero h1 span{color:var(--gold)}.hero p{color:#c2c2c2;line-height:2;margin:0 0 22px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap}.hero-photo{min-height:300px;border-radius:28px;background:linear-gradient(0deg,#0009,#0001),url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1100&q=85') center/cover;box-shadow:0 20px 60px #0009;border:1px solid #ffffff20;position:relative}
+    .photo-tag{position:absolute;bottom:18px;right:18px;background:#111d;padding:10px 16px;border-radius:14px;font-weight:800;color:var(--gold)}
+    .info-strip{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.info-pill{background:#ffffff0b;border:1px solid #ffffff16;border-radius:12px;padding:9px 12px;font-size:12px;color:#ddd}
+    main{padding:38px 0 70px}.section-title{text-align:center;margin-bottom:24px}.section-title h2{font-size:28px;margin:0 0 5px}.section-title p{margin:0;color:var(--muted);font-size:13px}
+    .tools{display:grid;gap:15px;margin-bottom:25px}.search{width:min(520px,100%);margin:auto;position:relative}.search input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:14px 45px 14px 14px;color:white;outline:none}.search:before{content:'⌕';position:absolute;right:17px;top:4px;font-size:27px;color:var(--gold)}
+    .cats{display:flex;gap:8px;overflow:auto;padding:2px 0 10px;justify-content:center}.cat{white-space:nowrap;background:#202020;border:1px solid #333;color:#ddd;padding:9px 16px;border-radius:12px;font-size:12px;font-weight:800}.cat.active,.cat:hover{background:var(--red);border-color:var(--red);color:white}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}.card{background:var(--panel);border:1px solid #ffffff12;border-radius:19px;overflow:hidden;transition:.2s}.card:hover{transform:translateY(-4px);border-color:#e63b3577}.food-photo{height:145px;background:#292929 center/cover;display:grid;place-items:center;font-size:52px}.card-body{padding:14px}.card h3{font-size:15px;margin:0 0 6px}.card p{font-size:11px;color:var(--muted);min-height:36px;line-height:1.7;margin:0 0 12px}.card-foot{display:flex;justify-content:space-between;align-items:center;gap:8px}.price{font-weight:900;color:var(--gold);font-size:14px}.add{border:0;border-radius:10px;background:#e63b3520;color:#ff7771;padding:8px 12px;font-weight:900}.add:hover{background:var(--red);color:white}
+    .empty{text-align:center;color:var(--muted);padding:45px;grid-column:1/-1}
+    footer{background:#090909;border-top:1px solid var(--line);padding:28px 0;text-align:center;color:#aaa;font-size:12px;line-height:2}footer b{color:white;font-size:15px}
+    .overlay{position:fixed;inset:0;background:#000b;z-index:30;display:none;justify-content:flex-start}.overlay.show{display:flex}.drawer{width:min(440px,100%);height:100%;background:#171717;border-left:1px solid #333;display:flex;flex-direction:column}.drawer-head{padding:18px;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center}.drawer-head h3{margin:0}.x{background:none;border:0;color:white;font-size:25px}.cart-list{padding:15px;overflow:auto;flex:1}.cart-row{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid #333;padding:12px 0}.cart-row small{display:block;color:#aaa}.qty{display:flex;align-items:center;gap:8px}.qty button{background:#333;border:0;color:white;width:27px;height:27px;border-radius:8px}.drawer-foot{padding:17px;border-top:1px solid #333}.total{display:flex;justify-content:space-between;color:var(--gold);font-weight:900;font-size:19px;margin-bottom:12px}.wide{width:100%}
+    .modal{position:fixed;inset:0;background:#000c;z-index:40;display:none;align-items:center;justify-content:center;padding:15px}.modal.show{display:flex}.modal-box{width:min(500px,100%);max-height:92vh;overflow:auto;background:#191919;border:1px solid #383838;border-radius:20px;padding:22px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.modal-head h3{margin:0}.field{margin:12px 0}.field label{display:block;font-size:12px;color:#ccc;margin-bottom:5px}.field input,.field textarea,.field select{width:100%;background:#101010;color:white;border:1px solid #383838;border-radius:11px;padding:11px;outline:none}.field textarea{resize:vertical}.hint{color:#aaa;font-size:11px;line-height:1.8}.phone-choice{display:flex;gap:8px}.phone-choice label{flex:1;border:1px solid #444;border-radius:10px;padding:9px;text-align:center;font-size:12px}.phone-choice input{accent-color:var(--red)}
+    @media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}.hero-grid{grid-template-columns:1fr 1fr}}@media(max-width:650px){.nav{height:67px}.brand b{font-size:17px}.cart-open{padding:10px 12px}.hero{padding:38px 0}.hero-grid{grid-template-columns:1fr}.hero-photo{min-height:210px;grid-row:1}.hero h1{font-size:34px}.grid{grid-template-columns:repeat(2,1fr);gap:10px}.food-photo{height:115px}.card-body{padding:11px}.card h3{font-size:13px}.card p{font-size:10px}.cats{justify-content:flex-start}.info-strip{gap:7px}.info-pill{font-size:10px}}@media(max-width:370px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <div class="brand"><div class="logo">👑</div><div><b>كوين برگر</b><small>QUEEN BURGER · الوجبات السريعة</small></div></div>
+  <button class="btn btn-red cart-open" onclick="openCart()">🛒 <span>السلة</span><span class="count" id="cartCount">0</span></button>
+</div></header>
+<section class="hero"><div class="wrap hero-grid">
+  <div><span class="eyebrow">🍟 الطعم اللي تحبه… يوصل لبابك</span><h1>وجبتك المفضلة من <span>كوين برگر</span></h1>
+  <p>اختار من منيو المطعم، أضف وجباتك إلى السلة، وأرسل طلبك بسهولة. ننتظرك في بابل – الحصوة – حي الشهداء.</p>
+  <div class="hero-actions"><button class="btn btn-red" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">تصفح المنيو</button><a class="btn btn-gold" href="tel:07875452664" style="text-decoration:none">اتصل بالمطعم</a></div>
+  <div class="info-strip"><span class="info-pill">📍 بابل – الحصوة – حي الشهداء</span><span class="info-pill">🛵 خدمة توصيل</span><span class="info-pill">💵 الدفع عند الاستلام</span></div></div>
+  <div class="hero-photo"><span class="photo-tag">👑 مذاق يستحق التجربة</span></div>
+</div></section>
+<main id="menu" class="wrap">
+  <div class="section-title"><h2>منيو كوين برگر</h2><p>اختار وجبتك المفضلة واضفها إلى السلة</p></div>
+  <div class="tools"><div class="search"><input id="search" placeholder="ابحث عن وجبة..." oninput="renderMenu()"></div><div class="cats" id="cats"></div></div>
+  <div class="grid" id="menuGrid"></div>
+</main>
+<footer><div class="wrap"><b>مطعم كوين برگر للوجبات السريعة 👑</b><br>بابل – الحصوة – حي الشهداء<br><a href="tel:07875452664" style="color:#f5b82e">07875452664</a>　|　<a href="tel:07745941538" style="color:#f5b82e">07745941538</a><br>© <span id="year"></span> Queen Burger<br><a href="admin.html" style="color:#777">دخول الإدارة</a></div></footer>
+
+<div class="overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()"><aside class="drawer"><div class="drawer-head"><h3>🛒 سلة الطلبات</h3><button class="x" onclick="closeCart()">×</button></div><div class="cart-list" id="cartList"></div><div class="drawer-foot"><div class="total"><span>المجموع</span><span id="cartTotal">0 د.ع</span></div><button class="btn btn-red wide" id="checkoutBtn" onclick="openCheckout()">متابعة الطلب</button></div></aside></div>
+<div class="modal" id="checkoutModal"><div class="modal-box"><div class="modal-head"><h3>🚚 بيانات التوصيل</h3><button class="x" onclick="closeCheckout()">×</button></div>
+<form id="orderForm"><div class="field"><label>الاسم الكامل *</label><input id="custName" required maxlength="80" placeholder="الاسم"></div><div class="field"><label>رقم الهاتف *</label><input id="custPhone" required type="tel" maxlength="20" placeholder="07xxxxxxxxx"></div><div class="field"><label>العنوان بالتفصيل *</label><textarea id="custAddress" required rows="2" placeholder="المنطقة وأقرب نقطة دالة"></textarea></div><div class="field"><label>ملاحظات (اختياري)</label><input id="custNotes" placeholder="مثلاً: بدون مخلل"></div>
+<div class="field"><label>إرسال الطلب إلى</label><div class="phone-choice"><label><input type="radio" name="destination" value="07875452664" checked> 07875452664</label><label><input type="radio" name="destination" value="07745941538"> 07745941538</label></div></div><p class="hint">سيتم فتح WhatsApp برسالة جاهزة تحتوي تفاصيل طلبك. لا يتم تسجيل الطلب في قاعدة بيانات في هذه النسخة الأولية.</p><button class="btn btn-gold wide" type="submit">تأكيد الطلب عبر WhatsApp</button></form></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// بعد إنشاء مشروع Supabase، ضع رابط المشروع والمفتاح العام (anon/publishable) هنا.
+// لا تضع service_role key داخل ملفات الموقع مطلقاً.
+const SUPABASE_URL = "ضع_رابط_مشروعك_هنا";
+const SUPABASE_ANON_KEY = "ضع_المفتاح_العام_هنا";
+const dbReady = SUPABASE_URL.startsWith("https://") &&
+  !SUPABASE_URL.includes("ضع_") && !SUPABASE_ANON_KEY.includes("ضع_");
+const db = dbReady ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+</script>
+<script>
+const menuItems = [
+{id:1,name:"شاورما دجاج",cat:"shawarma",price:2000,desc:"لفة شاورما دجاج متبلة مع الصوص",img:"https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=700&q=80"},
+{id:2,name:"صاج دجاج",cat:"shawarma",price:2500,desc:"صاج دجاج مع الجبن والخضار",img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80"},
+{id:3,name:"صاج إيطالي دجاج",cat:"shawarma",price:5000,desc:"بالخلطة الخاصة والجبن",img:"https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=700&q=80"},
+{id:4,name:"صاج تويستر + بيبسي",cat:"shawarma",price:3000,desc:"سندويش تويستر مع بيبسي",img:"https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=700&q=80"},
+{id:5,name:"نفر شاورما دجاج",cat:"shawarma",price:12000,desc:"وجبة شاورما مع صمون ومقبلات وثومية",img:"https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=700&q=80"},
+{id:6,name:"نصف نفر شاورما دجاج",cat:"shawarma",price:6000,desc:"نصف وجبة شاورما دجاج",img:"https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=700&q=80"},
+{id:7,name:"برگر لحم",cat:"burger",price:2000,desc:"برگر لحم مع الصوص الخاص",img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80"},
+{id:8,name:"برگر لحم بالجبن",cat:"burger",price:2500,desc:"برگر لحم مع جبنة شيدر",img:"https://images.unsplash.com/photo-1553979459-d2229ba7433a?auto=format&fit=crop&w=700&q=80"},
+{id:9,name:"برگر دجاج",cat:"burger",price:2000,desc:"برگر دجاج مع الخس والصوص",img:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=700&q=80"},
+{id:10,name:"برگر دجاج بالجبن",cat:"burger",price:2500,desc:"برگر دجاج مع جبنة شيدر",img:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=700&q=80"},
+{id:11,name:"برگر دبل محشي",cat:"burger",price:5000,desc:"برگر دبل محشي بالجبن والصلصات",img:"https://images.unsplash.com/photo-1553979459-d2229ba7433a?auto=format&fit=crop&w=700&q=80"},
+{id:12,name:"ميني بوكس برگر + زنجر",cat:"burger",price:3000,desc:"ميني برگر مع قطعة زنجر",img:"https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=700&q=80"},
+{id:13,name:"2 قطع كنتاكي",cat:"crispy",price:4000,desc:"قطعتان دجاج كرسبي مع ثومية وصمون",img:"https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=700&q=80"},
+{id:14,name:"3 قطع كنتاكي + كولا",cat:"crispy",price:6000,desc:"3 قطع دجاج مقرمش مع مشروب",img:"https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=700&q=80"},
+{id:15,name:"6 قطع كنتاكي + كولا",cat:"crispy",price:11000,desc:"وجبة دجاج كرسبي مع كولا",img:"https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80"},
+{id:16,name:"10 قطع كنتاكي + كولا عائلي",cat:"crispy",price:18000,desc:"وجبة عائلية مع ثومية وصمون",img:"https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80"},
+{id:17,name:"ستربس 3 قطع",cat:"crispy",price:4000,desc:"3 أصابع صدر دجاج مقرمشة",img:"https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80"},
+{id:18,name:"وجبة ستربس 4 قطع",cat:"crispy",price:5000,desc:"4 قطع ستربس مع بيبسي وصمون وثومية",img:"https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80"},
+{id:19,name:"ستربس 6 قطع",cat:"crispy",price:7000,desc:"6 قطع صدور ستربس",img:"https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80"},
+{id:20,name:"وجبة ستربس 10 قطع",cat:"crispy",price:12000,desc:"10 قطع مع المقبلات والصمون",img:"https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80"},
+{id:21,name:"سندويش زنجر + بيبسي",cat:"crispy",price:3000,desc:"سندويش زنجر كرسبي مع بيبسي",img:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=700&q=80"},
+{id:22,name:"سندويش زنجر بالجبن + بيبسي",cat:"crispy",price:3500,desc:"زنجر مع جبنة شيدر وبيبسي",img:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=700&q=80"},
+{id:23,name:"سندويش زنجر سبايسي",cat:"crispy",price:3000,desc:"سندويش زنجر حار ومقرمش",img:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=700&q=80"},
+{id:24,name:"ريزو عادي + بيبسي",cat:"meals",price:5000,desc:"أرز ريزو بالدجاج والصوص مع بيبسي",img:"https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=700&q=80"},
+{id:25,name:"ريزو سبايسي",cat:"meals",price:5000,desc:"ريزو بخلطة سبايسي",img:"https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=700&q=80"},
+{id:26,name:"ريزو عادي",cat:"meals",price:5000,desc:"أرز ريزو بالصوص الخاص",img:"https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=700&q=80"},
+{id:27,name:"حاج إيطالي دجاج",cat:"shawarma",price:5000,desc:"وجبة دجاج بالخلطة الإيطالية",img:"https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=700&q=80"},
+{id:28,name:"لحم مشكل",cat:"meals",price:6000,desc:"وجبة لحم مشكلة",img:"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80"},
+{id:29,name:"لازانيا كص دجاج",cat:"meals",price:5000,desc:"لازانيا بالدجاج",img:"https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=700&q=80"},
+{id:30,name:"لازانيا مقرمش",cat:"meals",price:6000,desc:"لازانيا بالدجاج المقرمش",img:"https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=700&q=80"},
+{id:31,name:"فاهيتا دجاج + بيبسي",cat:"shawarma",price:3000,desc:"سندويش فاهيتا دجاج مع بيبسي",img:"https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=700&q=80"},
+{id:32,name:"بيتزا حجم كبير",cat:"pizza",price:10000,desc:"بيتزا بحجم كبير",img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80"},
+{id:33,name:"بيتزا حجم وسط",cat:"pizza",price:7000,desc:"بيتزا بحجم وسط",img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80"},
+{id:34,name:"بيتزا حجم صغير",cat:"pizza",price:5000,desc:"بيتزا بحجم صغير",img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80"},
+{id:35,name:"بيتزا بيبروني كبير",cat:"pizza",price:10000,desc:"بيتزا بيبروني حجم كبير",img:"https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=700&q=80"},
+{id:36,name:"بيتزا بيبروني وسط",cat:"pizza",price:7000,desc:"بيتزا بيبروني حجم وسط",img:"https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=700&q=80"},
+{id:37,name:"بيتزا بيبروني صغير",cat:"pizza",price:5000,desc:"بيتزا بيبروني حجم صغير",img:"https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=700&q=80"},
+{id:38,name:"فنگر صغير",cat:"finger",price:1000,desc:"حجم صغير",img:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=80"},
+{id:39,name:"فنگر كبير",cat:"finger",price:2000,desc:"حجم كبير",img:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=80"},
+{id:40,name:"فنگر بالجبن",cat:"finger",price:2500,desc:"فنگر مع الجبن",img:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=80"},
+{id:41,name:"فنگر بالمايونيز",cat:"finger",price:3500,desc:"فنگر مع المايونيز",img:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=80"}
+];
+const categories=[["all","الكل"],["shawarma","شاورما وصاج"],["burger","برگر"],["crispy","كنتاكي وستربس"],["meals","ريزو ووجبات"],["pizza","بيتزا"],["finger","فنگر ومقبلات"]];
+let active="all",cart=JSON.parse(localStorage.getItem("qb_cart")||"{}");
+const money=n=>new Intl.NumberFormat('en-US').format(n)+" د.ع";
+function renderCats(){document.getElementById("cats").innerHTML=categories.map(([id,n])=>`<button class="cat ${active===id?'active':''}" onclick="active='${id}';renderCats();renderMenu()">${n}</button>`).join("")}
+function renderMenu(){const q=document.getElementById("search").value.trim();let list=menuItems.filter(x=>(active==="all"||x.cat===active)&&x.name.includes(q));document.getElementById("menuGrid").innerHTML=list.length?list.map(x=>`<article class="card"><div class="food-photo" style="background-image:url('${x.img}')"></div><div class="card-body"><h3>${x.name}</h3><p>${x.desc}</p><div class="card-foot"><span class="price">${money(x.price)}</span><button class="add" onclick="addItem(${x.id})">＋ أضف</button></div></div></article>`).join(""):`<div class="empty">ما لقينا وجبة بهذا الاسم.</div>`}
+function saveCart(){localStorage.setItem("qb_cart",JSON.stringify(cart));renderCart()}
+function addItem(id){cart[id]=(cart[id]||0)+1;saveCart()}
+function changeQty(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];saveCart()}
+function cartData(){return Object.entries(cart).map(([id,q])=>({item:menuItems.find(x=>x.id==id),q})).filter(x=>x.item)}
+function total(){return cartData().reduce((s,x)=>s+x.item.price*x.q,0)}
+function renderCart(){let rows=cartData();document.getElementById("cartCount").textContent=rows.reduce((s,x)=>s+x.q,0);document.getElementById("cartTotal").textContent=money(total());document.getElementById("cartList").innerHTML=rows.length?rows.map(({item,q})=>`<div class="cart-row"><div><b>${item.name}</b><small>${money(item.price)} × ${q}</small></div><div class="qty"><button onclick="changeQty(${item.id},-1)">−</button><b>${q}</b><button onclick="changeQty(${item.id},1)">＋</button></div></div>`).join(""):`<div class="empty">السلة فارغة حالياً 🍔</div>`;document.getElementById("checkoutBtn").disabled=!rows.length}
+function openCart(){document.getElementById("cartOverlay").classList.add("show");renderCart()}function closeCart(){document.getElementById("cartOverlay").classList.remove("show")}
+function openCheckout(){if(!total())return;closeCart();document.getElementById("checkoutModal").classList.add("show")}function closeCheckout(){document.getElementById("checkoutModal").classList.remove("show")}
+document.getElementById("orderForm").addEventListener("submit",async e=>{
+ e.preventDefault(); if(!total())return;
+ const name=document.getElementById("custName").value.trim();
+ const phone=document.getElementById("custPhone").value.trim();
+ const address=document.getElementById("custAddress").value.trim();
+ const notes=document.getElementById("custNotes").value.trim();
+ const dest=document.querySelector('input[name="destination"]:checked').value;
+ const items=cartData().map(({item,q})=>({id:item.id,name:item.name,unit_price:item.price,quantity:q,line_total:item.price*q}));
+ const orderTotal=total();
+ const lines=items.map(x=>`• ${x.name} × ${x.quantity} = ${money(x.line_total)}`).join("\\n");
+ const msg=`طلب جديد - كوين برگر 👑\\n\\nالاسم: ${name}\\nهاتف الزبون: ${phone}\\nالعنوان: ${address}\\n\\nالطلب:\\n${lines}\\n\\nالمجموع: ${money(orderTotal)}\\nملاحظات: ${notes||"لا توجد"}\\n\\nالدفع: نقداً عند الاستلام`;
+ let saved=false;
+ if(db){
+   const {error}=await db.from("orders").insert([{customer_name:name,customer_phone:phone,customer_address:address,notes:notes,items:items,total_iqd:orderTotal,status:"new"}]);
+   if(error){alert("تعذر تسجيل الطلب في النظام حالياً. سنفتح WhatsApp لإرسال الطلب، ويرجى التأكد من إرساله.");}
+   else saved=true;
+ }
+ window.open(`https://wa.me/964${dest.slice(1)}?text=${encodeURIComponent(msg)}`,"_blank");
+ cart={};saveCart();closeCheckout();e.target.reset();
+ alert(saved?"تم تسجيل الطلب وفتح WhatsApp لإرساله للمطعم.":"تم تجهيز الطلب في WhatsApp. أرسل الرسالة لإكمال الطلب.");
+});
+document.getElementById("year").textContent=new Date().getFullYear();renderCats();renderMenu();renderCart();
+</script>
+</body></html>

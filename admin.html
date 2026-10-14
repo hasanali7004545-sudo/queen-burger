@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101010"><title>إدارة كوين برگر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--red:#e63b35;--gold:#f5b82e;--bg:#101010;--panel:#1b1b1b;--line:#333}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#fff;font-family:Cairo,sans-serif}.wrap{width:min(1100px,94%);margin:auto}
+header{padding:18px 0;border-bottom:1px solid var(--line);background:#151515}header .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px}h1{font-size:21px;margin:0}.muted{color:#aaa;font-size:12px}
+main{padding:30px 0}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:18px}
+input,button,select{font:inherit}input{width:100%;background:#101010;border:1px solid #444;color:#fff;border-radius:10px;padding:12px;margin:6px 0 12px}
+button{border:0;border-radius:10px;padding:10px 16px;font-weight:800;cursor:pointer}.red{background:var(--red);color:white}.gold{background:var(--gold);color:#111}.gray{background:#333;color:white}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{background:#111;border:1px solid #333;border-radius:13px;padding:14px}.stat b{display:block;color:var(--gold);font-size:23px}
+.order{border:1px solid #383838;border-radius:14px;padding:15px;margin:12px 0;background:#141414}.order-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.order h3{margin:0 0 6px}.items{color:#ddd;font-size:13px;line-height:2;white-space:pre-line}.meta{color:#aaa;font-size:12px;line-height:2}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.actions select{background:#222;color:white;border:1px solid #444;border-radius:9px;padding:8px}
+.hidden{display:none!important}.notice{background:#382c12;color:#ffe2a0;padding:12px;border-radius:10px;font-size:12px;line-height:1.9}.danger{color:#ff938d}.status{color:var(--gold);font-weight:800}
+@media(max-width:650px){.row,.stats{grid-template-columns:1fr}.panel{padding:15px}}
+</style></head>
+<body>
+<header><div class="wrap"><div><h1>👑 لوحة إدارة كوين برگر</h1><div class="muted">إدارة الطلبات الواردة</div></div><a href="index.html" style="color:#f5b82e;text-decoration:none;font-size:13px">العودة للموقع ←</a></div></header>
+<main class="wrap">
+<section id="setup" class="panel">
+<h2>إعداد الاتصال بقاعدة البيانات</h2>
+<p class="muted">هذه اللوحة تحتاج إعداد مشروع Supabase مرة واحدة. ضع نفس رابط المشروع والمفتاح العام المستخدمين في index.html و admin.html.</p>
+<div class="notice">تنبيه أمني: استخدم المفتاح العام anon/publishable فقط. لا تضع service_role key في الموقع. يجب تنفيذ ملف supabase_schema.sql داخل SQL Editor في Supabase وإضافة حساب المدير إلى جدول admin_users.</div>
+</section>
+<section id="login" class="panel">
+<h2>تسجيل دخول المدير</h2><div class="row"><div><label>البريد الإلكتروني</label><input id="email" type="email" autocomplete="username"></div><div><label>كلمة المرور</label><input id="password" type="password" autocomplete="current-password"></div></div>
+<button class="red" onclick="login()">تسجيل الدخول</button><p id="loginMsg" class="muted"></p>
+</section>
+<section id="dashboard" class="hidden">
+<div class="panel"><div class="order-top"><div><h2>الطلبات</h2><p class="muted">تتحدث القائمة عند الضغط على تحديث.</p></div><div><button class="gold" onclick="loadOrders()">تحديث الطلبات</button> <button class="gray" onclick="logout()">تسجيل الخروج</button></div></div>
+<div class="stats"><div class="stat">كل الطلبات<b id="allCount">0</b></div><div class="stat">طلبات جديدة<b id="newCount">0</b></div><div class="stat">مبيعات المسلّم<b id="sales">0 د.ع</b></div></div></div>
+<div id="orders"></div>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ضع بيانات Supabase نفسها الموجودة في index.html
+const SUPABASE_URL="ضع_رابط_مشروعك_هنا";
+const SUPABASE_ANON_KEY="ضع_المفتاح_العام_هنا";
+const configured=SUPABASE_URL.startsWith("https://")&&!SUPABASE_URL.includes("ضع_")&&!SUPABASE_ANON_KEY.includes("ضع_");
+const sb=configured?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
+const fmt=n=>new Intl.NumberFormat("en-US").format(n)+" د.ع";
+if(!configured){document.getElementById("loginMsg").textContent="أكمل إعداد بيانات Supabase في هذا الملف أولاً.";}
+else{document.getElementById("setup").classList.add("hidden");checkSession();}
+async function checkSession(){const {data}=await sb.auth.getSession();if(data.session){document.getElementById("login").classList.add("hidden");document.getElementById("dashboard").classList.remove("hidden");loadOrders();}}
+async function login(){const email=document.getElementById("email").value,password=document.getElementById("password").value;const {error}=await sb.auth.signInWithPassword({email,password});document.getElementById("loginMsg").textContent=error?error.message:"تم تسجيل الدخول";if(!error)checkSession();}
+async function logout(){await sb.auth.signOut();location.reload();}
+async function loadOrders(){const box=document.getElementById("orders");box.innerHTML='<div class="panel">جارٍ تحميل الطلبات...</div>';const {data,error}=await sb.from("orders").select("*").order("created_at",{ascending:false}).limit(100);if(error){box.innerHTML='<div class="panel danger">تعذر تحميل الطلبات: '+escapeHtml(error.message)+'</div>';return;}
+document.getElementById("allCount").textContent=data.length;document.getElementById("newCount").textContent=data.filter(x=>x.status==="new").length;document.getElementById("sales").textContent=fmt(data.filter(x=>x.status==="delivered").reduce((s,x)=>s+x.total_iqd,0));
+box.innerHTML=data.length?data.map(o=>{const items=Array.isArray(o.items)?o.items.map(i=>`${i.name} × ${i.quantity} — ${fmt(i.line_total)}`).join("\\n"):"";return `<article class="order"><div class="order-top"><div><h3>طلب #${o.id} — ${escapeHtml(o.customer_name)}</h3><div class="meta">📞 ${escapeHtml(o.customer_phone)}<br>📍 ${escapeHtml(o.customer_address)}<br>🕒 ${new Date(o.created_at).toLocaleString("ar-IQ")}</div></div><div class="status">${fmt(o.total_iqd)}</div></div><p class="items">${escapeHtml(items)}</p><div class="meta">ملاحظات: ${escapeHtml(o.notes||"لا توجد")}<br>الحالة الحالية: <b>${escapeHtml(o.status)}</b></div><div class="actions"><select id="s-${o.id}"><option value="new" ${o.status==="new"?"selected":""}>جديد</option><option value="accepted" ${o.status==="accepted"?"selected":""}>مقبول</option><option value="preparing" ${o.status==="preparing"?"selected":""}>قيد التحضير</option><option value="out_for_delivery" ${o.status==="out_for_delivery"?"selected":""}>خرج للتوصيل</option><option value="delivered" ${o.status==="delivered"?"selected":""}>تم التسليم</option><option value="cancelled" ${o.status==="cancelled"?"selected":""}>ملغي</option></select><button class="red" onclick="updateStatus(${o.id})">حفظ الحالة</button><a class="gold" style="text-decoration:none;padding:9px 12px;border-radius:9px;color:#111;font-weight:800" href="https://wa.me/${normalizePhone(o.customer_phone)}" target="_blank">مراسلة الزبون</a></div></article>`}).join(""):'<div class="panel">لا توجد طلبات حتى الآن.</div>';
+}
+async function updateStatus(id){const status=document.getElementById("s-"+id).value;const {error}=await sb.from("orders").update({status}).eq("id",id);if(error)alert("لم يتم تحديث الحالة: "+error.message);else loadOrders();}
+function normalizePhone(p){let n=String(p||"").replace(/\\D/g,"");if(n.startsWith("0"))n="964"+n.slice(1);return n;}
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+</script></body></html>
