@@ -137,8 +137,18 @@ document.getElementById("orderForm").addEventListener("submit",async e=>{
  const items=cartData().map(({item,q})=>({id:item.id,name:item.name,unit_price:item.price,quantity:q,line_total:item.price*q}));
  const orderTotal=total();
  const lines=items.map(x=>`• ${x.name} × ${x.quantity} = ${money(x.line_total)}`).join("\n");
- const msg=`طلب جديد - كوين برگر 👑الاسم: ${name}هاتف الزبون: ${phone}العنوان: ${address}الطلب:${lines}المجموع: ${money(orderTotal)}ملاحظات: ${notes||"لا توجد"}الدفع: نقداً عند الاستلام`;
- let saved=false;
+ const msg = `طلب جديد - كوين بركر 👑
+
+الاسم: ${name}
+هاتف الزبون: ${phone}
+العنوان: ${address}
+
+الطلب:
+${lines}
+
+المجموع: ${money(orderTotal)} د.ع
+ملاحظات: ${notes || "لا توجد"}
+الدفع: نقداً عند الاستلام`;
  if(db){
    const {error}=await db.from("orders").insert([{customer_name:name,customer_phone:phone,customer_address:address,notes:notes,items:items,total_iqd:orderTotal,status:"new"}]);
    if(error){alert("تعذر تسجيل الطلب في النظام حالياً. سنفتح WhatsApp لإرسال الطلب، ويرجى التأكد من إرساله.");}
